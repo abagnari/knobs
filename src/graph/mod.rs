@@ -442,6 +442,7 @@ where
         Ok(())
     }
 
+    #[allow(dead_code)]
     fn validate_blueprints() -> anyhow::Result<()> {
         for blueprint in K::all() {
             let mut names = HashSet::new();

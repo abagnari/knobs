@@ -110,6 +110,7 @@ impl Connections {
         graph
     }
 
+    #[allow(dead_code)]
     pub(crate) fn dependent_graph(&self) -> HashMap<NodeId, Vec<NodeId>> {
         let mut graph: HashMap<NodeId, Vec<NodeId>> = HashMap::new();
 

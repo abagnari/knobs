@@ -53,6 +53,7 @@ enum PortSide {
 }
 
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
+#[allow(dead_code)]
 pub(super) enum PanelPlacement {
     Top,
     Bottom,
@@ -112,6 +113,7 @@ impl Painter {
             })
     }
 
+    #[allow(dead_code)]
     pub(super) fn show_panel<R>(
         &self,
         ui: &mut Ui,

@@ -29,6 +29,7 @@ where
     K: NodeBlueprintDefinition<P, D>,
     A: GraphEventHandler<D>,
 {
+    #[allow(dead_code)]
     options: Options,
     egui_context: Option<Context>,
     nodes: SecondaryMap<NodeId, EvaluationNode<P, D, K>>,
@@ -260,6 +261,7 @@ where
 
     /// Empties the evaluation stack and invalidates the nodes it held with
     /// `reason`. Currently unused.
+    #[allow(dead_code)]
     fn clear_evaluation_stack(&mut self, reason: InvalidationReason) -> anyhow::Result<()> {
         for node_id in &self.evaluation_stack {
             let node = self
@@ -607,6 +609,7 @@ where
     }
 
     /// Clears the focused node without touching any node state.
+    #[allow(dead_code)]
     pub(super) fn clear_focused_node(&mut self) {
         self.focused_node = None;
     }
@@ -858,6 +861,7 @@ where
         Ok(())
     }
 
+    #[allow(dead_code)]
     fn clear(&mut self) {
         self.looping_nodes.clear();
         self.evaluation_stack.clear();

@@ -267,6 +267,7 @@ impl DataValidityState {
         matches!(self, Self::Invalid)
     }
 
+    #[allow(dead_code)]
     pub fn is_pending_evaluation(&self) -> bool {
         matches!(self, Self::PendingEvaluation { .. })
     }
@@ -580,25 +581,30 @@ where
     }
 
     /// Whether the node holds the result of its current inputs.
+    #[allow(dead_code)]
     pub fn is_valid(&self) -> bool {
         self.validity.is_valid()
     }
 
     /// Whether the node has no result or a stale one.
+    #[allow(dead_code)]
     pub fn is_invalid(&self) -> bool {
         self.validity.is_invalid()
     }
 
     /// Whether the node is scheduled but has not started computing.
+    #[allow(dead_code)]
     pub fn is_pending_evaluation(&self) -> bool {
         self.validity.is_pending_evaluation()
     }
 
     /// Whether the node's computation has started and not finished.
+    #[allow(dead_code)]
     pub fn is_pending_computation(&self) -> bool {
         self.validity.is_pending_computation()
     }
 
+    #[allow(dead_code)]
     pub(crate) fn custom_ui_state(&self) -> &GenericStore {
         &self.custom_ui_state
     }
@@ -620,6 +626,7 @@ where
         self.blueprint.custom_ui_height()
     }
 
+    #[allow(dead_code)]
     fn declared_outputs(
         &self,
         outputs: &HashMap<String, Arc<D>>,
@@ -966,6 +973,7 @@ where
     }
 
     /// Whether the node holds the result of its current inputs.
+    #[allow(dead_code)]
     pub fn is_valid(&self) -> bool {
         self.validity.is_valid()
     }
@@ -976,6 +984,7 @@ where
     }
 
     /// Whether the node is scheduled but has not started computing.
+    #[allow(dead_code)]
     pub fn is_pending_evaluation(&self) -> bool {
         self.validity.is_pending_evaluation()
     }
@@ -989,6 +998,7 @@ where
         &self.ports
     }
 
+    #[allow(dead_code)]
     pub(crate) fn ports_mut(&mut self) -> impl Iterator<Item=(&PortId, &mut EvaluationPort)> {
         self.ports.iter_mut()
     }
@@ -997,24 +1007,28 @@ where
         self.ports.get_mut(port_id)
     }
 
+    #[allow(dead_code)]
     pub(crate) fn input_ports(&self) -> impl Iterator<Item=&EvaluationPort> {
         self.ports.values().filter(|port| {
             port.is_input() && !matches!(port.input_type, Some(PortInputType::ConstantOnly { .. }))
         })
     }
 
+    #[allow(dead_code)]
     pub(crate) fn input_ports_mut(&mut self) -> impl Iterator<Item=&mut EvaluationPort> {
         self.ports.values_mut().filter(|port| {
             port.is_input() && !matches!(port.input_type, Some(PortInputType::ConstantOnly { .. }))
         })
     }
 
+    #[allow(dead_code)]
     pub(crate) fn input_parameters(&self) -> impl Iterator<Item=&EvaluationPort> {
         self.ports.values().filter(|port| {
             port.is_input() && matches!(port.input_type, Some(PortInputType::ConstantOnly { .. }))
         })
     }
 
+    #[allow(dead_code)]
     pub(crate) fn input_parameters_mut(&mut self) -> impl Iterator<Item=&mut EvaluationPort> {
         self.ports.values_mut().filter(|port| {
             port.is_input() && matches!(port.input_type, Some(PortInputType::ConstantOnly { .. }))

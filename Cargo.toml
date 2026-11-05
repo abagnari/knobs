@@ -1,6 +1,6 @@
 [package]
 name = "knobs"
-version = "0.0.8"
+version = "0.0.9"
 edition = "2024"
 description = "A helper library to create a node graph UI using egui as base framework, with a ready to use configurable evaluator"
 license = "Apache-2.0"

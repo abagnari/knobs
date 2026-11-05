@@ -7,6 +7,7 @@ use crate::graph::node::port::PortId;
 use crate::graph::node::{DataValidityState, EvaluationNode, NodeId};
 use crate::{ConstantInputType, GenericStore, NodeBlueprintDefinition, PortTypeInfo};
 
+#[allow(clippy::large_enum_variant)]
 pub(crate) enum Command<P, D, K>
 where
     P: PortTypeInfo + Eq + Copy + Clone + Debug,

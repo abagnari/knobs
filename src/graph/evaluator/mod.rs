@@ -56,6 +56,7 @@ where
     K: NodeBlueprintDefinition<P, D>,
     A: GraphEventHandler<D>,
 {
+    #[allow(clippy::too_many_arguments)]
     pub(super) fn new(
         options: Options,
         nodes: SecondaryMap<NodeId, EvaluationNode<P, D, K>>,

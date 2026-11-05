@@ -1,0 +1,22 @@
+[package]
+name = "knobs"
+version = "0.0.8"
+edition = "2024"
+description = "A helper library to create a node graph UI using egui as base framework, with a ready to use configurable evaluator"
+license = "Apache-2.0"
+keywords = ["node-editor", "graph-ui", "ui", "egui"]
+categories = ["gui"]
+rust-version = "1.95"
+exclude = ["assets/"]
+
+[dependencies]
+egui = "0.37.0"
+anyhow = "1.0.104"
+log = "0.4.34"
+serde = { version = "1.0.229", features = ["derive", "rc"] }
+ron = "0.12.2"
+slotmap = "1.1.1"
+rand = "0.10.3"
+
+[dev-dependencies]
+eframe = "0.37.0"

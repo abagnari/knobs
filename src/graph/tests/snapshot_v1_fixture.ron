@@ -1,0 +1,85 @@
+GraphSnapshot(
+  version: 1,
+  nodes: [
+    NodeSnapshot(
+      id: NodeId(
+        id: 0,
+      ),
+      blueprint: Pass,
+      name: "a",
+      position: (1.0, 2.0),
+      ports: [
+        PortSnapshot(
+          id: PortId(
+            node_id: NodeId(
+              id: 0,
+            ),
+            id: 0,
+          ),
+          name: "in",
+          constant: None,
+        ),
+        PortSnapshot(
+          id: PortId(
+            node_id: NodeId(
+              id: 0,
+            ),
+            id: 1,
+          ),
+          name: "out",
+          constant: None,
+        ),
+      ],
+    ),
+    NodeSnapshot(
+      id: NodeId(
+        id: 1,
+      ),
+      blueprint: Pass,
+      name: "b",
+      position: (3.0, 4.0),
+      ports: [
+        PortSnapshot(
+          id: PortId(
+            node_id: NodeId(
+              id: 1,
+            ),
+            id: 0,
+          ),
+          name: "in",
+          constant: None,
+        ),
+        PortSnapshot(
+          id: PortId(
+            node_id: NodeId(
+              id: 1,
+            ),
+            id: 1,
+          ),
+          name: "out",
+          constant: None,
+        ),
+      ],
+    ),
+  ],
+  connections: [
+    ConnectionSnapshot(
+      from: PortId(
+        node_id: NodeId(
+          id: 0,
+        ),
+        id: 1,
+      ),
+      to: PortId(
+        node_id: NodeId(
+          id: 1,
+        ),
+        id: 0,
+      ),
+    ),
+  ],
+  canvas: CanvasSnapshot(
+    pan: (0.0, 0.0),
+    zoom: 1.0,
+  ),
+)

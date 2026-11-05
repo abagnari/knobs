@@ -1,0 +1,425 @@
+GraphSnapshot(
+  version: 1,
+  nodes: [
+    NodeSnapshot(
+      id: NodeId(
+        id: 0,
+      ),
+      blueprint: Oscillator,
+      name: "Carrier",
+      position: (20.0, 30.0),
+      ports: [
+        PortSnapshot(
+          id: PortId(
+            node_id: NodeId(
+              id: 0,
+            ),
+            id: 0,
+          ),
+          name: "frequency",
+          constant: Some(Float(2.0)),
+        ),
+        PortSnapshot(
+          id: PortId(
+            node_id: NodeId(
+              id: 0,
+            ),
+            id: 1,
+          ),
+          name: "amplitude",
+          constant: Some(Float(1.0)),
+        ),
+        PortSnapshot(
+          id: PortId(
+            node_id: NodeId(
+              id: 0,
+            ),
+            id: 2,
+          ),
+          name: "shape",
+          constant: Some(Selection(0)),
+        ),
+        PortSnapshot(
+          id: PortId(
+            node_id: NodeId(
+              id: 0,
+            ),
+            id: 3,
+          ),
+          name: "output",
+          constant: None,
+        ),
+      ],
+    ),
+    NodeSnapshot(
+      id: NodeId(
+        id: 1,
+      ),
+      blueprint: Oscillator,
+      name: "Wobble",
+      position: (20.0, 330.0),
+      ports: [
+        PortSnapshot(
+          id: PortId(
+            node_id: NodeId(
+              id: 1,
+            ),
+            id: 0,
+          ),
+          name: "frequency",
+          constant: Some(Float(7.0)),
+        ),
+        PortSnapshot(
+          id: PortId(
+            node_id: NodeId(
+              id: 1,
+            ),
+            id: 1,
+          ),
+          name: "amplitude",
+          constant: Some(Float(0.5)),
+        ),
+        PortSnapshot(
+          id: PortId(
+            node_id: NodeId(
+              id: 1,
+            ),
+            id: 2,
+          ),
+          name: "shape",
+          constant: Some(Selection(2)),
+        ),
+        PortSnapshot(
+          id: PortId(
+            node_id: NodeId(
+              id: 1,
+            ),
+            id: 3,
+          ),
+          name: "output",
+          constant: None,
+        ),
+      ],
+    ),
+    NodeSnapshot(
+      id: NodeId(
+        id: 2,
+      ),
+      blueprint: Mix,
+      name: "Mix",
+      position: (280.0, 170.0),
+      ports: [
+        PortSnapshot(
+          id: PortId(
+            node_id: NodeId(
+              id: 2,
+            ),
+            id: 0,
+          ),
+          name: "a",
+          constant: None,
+        ),
+        PortSnapshot(
+          id: PortId(
+            node_id: NodeId(
+              id: 2,
+            ),
+            id: 1,
+          ),
+          name: "b",
+          constant: None,
+        ),
+        PortSnapshot(
+          id: PortId(
+            node_id: NodeId(
+              id: 2,
+            ),
+            id: 2,
+          ),
+          name: "balance",
+          constant: Some(Float(0.35)),
+        ),
+        PortSnapshot(
+          id: PortId(
+            node_id: NodeId(
+              id: 2,
+            ),
+            id: 3,
+          ),
+          name: "output",
+          constant: None,
+        ),
+      ],
+    ),
+    NodeSnapshot(
+      id: NodeId(
+        id: 3,
+      ),
+      blueprint: Smooth,
+      name: "Smooth",
+      position: (540.0, 60.0),
+      ports: [
+        PortSnapshot(
+          id: PortId(
+            node_id: NodeId(
+              id: 3,
+            ),
+            id: 0,
+          ),
+          name: "input",
+          constant: None,
+        ),
+        PortSnapshot(
+          id: PortId(
+            node_id: NodeId(
+              id: 3,
+            ),
+            id: 1,
+          ),
+          name: "window",
+          constant: Some(Integer(6)),
+        ),
+        PortSnapshot(
+          id: PortId(
+            node_id: NodeId(
+              id: 3,
+            ),
+            id: 2,
+          ),
+          name: "output",
+          constant: None,
+        ),
+      ],
+    ),
+    NodeSnapshot(
+      id: NodeId(
+        id: 4,
+      ),
+      blueprint: Scope,
+      name: "Scope",
+      position: (820.0, 30.0),
+      ports: [
+        PortSnapshot(
+          id: PortId(
+            node_id: NodeId(
+              id: 4,
+            ),
+            id: 0,
+          ),
+          name: "input",
+          constant: None,
+        ),
+        PortSnapshot(
+          id: PortId(
+            node_id: NodeId(
+              id: 4,
+            ),
+            id: 1,
+          ),
+          name: "title",
+          constant: Some(String("Smoothed mix")),
+        ),
+        PortSnapshot(
+          id: PortId(
+            node_id: NodeId(
+              id: 4,
+            ),
+            id: 2,
+          ),
+          name: "trace",
+          constant: None,
+        ),
+        PortSnapshot(
+          id: PortId(
+            node_id: NodeId(
+              id: 4,
+            ),
+            id: 3,
+          ),
+          name: "label",
+          constant: None,
+        ),
+      ],
+    ),
+    NodeSnapshot(
+      id: NodeId(
+        id: 5,
+      ),
+      blueprint: Measure,
+      name: "Measure",
+      position: (820.0, 360.0),
+      ports: [
+        PortSnapshot(
+          id: PortId(
+            node_id: NodeId(
+              id: 5,
+            ),
+            id: 0,
+          ),
+          name: "input",
+          constant: None,
+        ),
+        PortSnapshot(
+          id: PortId(
+            node_id: NodeId(
+              id: 5,
+            ),
+            id: 1,
+          ),
+          name: "peak",
+          constant: None,
+        ),
+        PortSnapshot(
+          id: PortId(
+            node_id: NodeId(
+              id: 5,
+            ),
+            id: 2,
+          ),
+          name: "rms",
+          constant: None,
+        ),
+      ],
+    ),
+    NodeSnapshot(
+      id: NodeId(
+        id: 6,
+      ),
+      blueprint: Scope,
+      name: "Scope",
+      position: (540.0, 300.0),
+      ports: [
+        PortSnapshot(
+          id: PortId(
+            node_id: NodeId(
+              id: 6,
+            ),
+            id: 0,
+          ),
+          name: "input",
+          constant: None,
+        ),
+        PortSnapshot(
+          id: PortId(
+            node_id: NodeId(
+              id: 6,
+            ),
+            id: 1,
+          ),
+          name: "title",
+          constant: Some(String("Raw mix")),
+        ),
+        PortSnapshot(
+          id: PortId(
+            node_id: NodeId(
+              id: 6,
+            ),
+            id: 2,
+          ),
+          name: "trace",
+          constant: None,
+        ),
+        PortSnapshot(
+          id: PortId(
+            node_id: NodeId(
+              id: 6,
+            ),
+            id: 3,
+          ),
+          name: "label",
+          constant: None,
+        ),
+      ],
+    ),
+  ],
+  connections: [
+    ConnectionSnapshot(
+      from: PortId(
+        node_id: NodeId(
+          id: 0,
+        ),
+        id: 3,
+      ),
+      to: PortId(
+        node_id: NodeId(
+          id: 2,
+        ),
+        id: 0,
+      ),
+    ),
+    ConnectionSnapshot(
+      from: PortId(
+        node_id: NodeId(
+          id: 1,
+        ),
+        id: 3,
+      ),
+      to: PortId(
+        node_id: NodeId(
+          id: 2,
+        ),
+        id: 1,
+      ),
+    ),
+    ConnectionSnapshot(
+      from: PortId(
+        node_id: NodeId(
+          id: 2,
+        ),
+        id: 3,
+      ),
+      to: PortId(
+        node_id: NodeId(
+          id: 3,
+        ),
+        id: 0,
+      ),
+    ),
+    ConnectionSnapshot(
+      from: PortId(
+        node_id: NodeId(
+          id: 3,
+        ),
+        id: 2,
+      ),
+      to: PortId(
+        node_id: NodeId(
+          id: 4,
+        ),
+        id: 0,
+      ),
+    ),
+    ConnectionSnapshot(
+      from: PortId(
+        node_id: NodeId(
+          id: 3,
+        ),
+        id: 2,
+      ),
+      to: PortId(
+        node_id: NodeId(
+          id: 5,
+        ),
+        id: 0,
+      ),
+    ),
+    ConnectionSnapshot(
+      from: PortId(
+        node_id: NodeId(
+          id: 2,
+        ),
+        id: 3,
+      ),
+      to: PortId(
+        node_id: NodeId(
+          id: 6,
+        ),
+        id: 0,
+      ),
+    ),
+  ],
+  canvas: CanvasSnapshot(
+    pan: (20.0, 20.0),
+    zoom: 1.0,
+  ),
+)

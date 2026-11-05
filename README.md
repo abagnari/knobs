@@ -1,5 +1,9 @@
 # Knobs – A comprehensive node UI framework
 
+[![crates.io](https://img.shields.io/crates/v/knobs.svg)](https://crates.io/crates/knobs)
+[![docs.rs](https://docs.rs/knobs/badge.svg)](https://docs.rs/knobs)
+[![CI](https://github.com/abagnari/knobs/actions/workflows/ci.yml/badge.svg)](https://github.com/abagnari/knobs/actions/workflows/ci.yml)
+
 Knobs is a UI node framework based on [egui](https://crates.io/crates/egui) with visualization, evaluation, and result
 presentation rolled into a coherent single solution.
 

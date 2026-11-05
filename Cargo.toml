@@ -8,6 +8,8 @@ keywords = ["node-editor", "graph-ui", "ui", "egui"]
 categories = ["gui"]
 rust-version = "1.95"
 exclude = ["assets/"]
+repository = "https://github.com/abagnari/knobs"
+readme = "README.md"
 
 [dependencies]
 egui = "0.37.0"

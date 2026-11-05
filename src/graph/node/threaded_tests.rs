@@ -328,9 +328,10 @@ fn compute_after_invalidating_a_running_worker_starts_a_fresh_worker() {
 
 #[test]
 fn compute_thread_with_immediate_result_returns_it() {
-    let mut runtime_state = RuntimeState::default();
-    runtime_state.inputs_map =
-        InputsMap::from_iter([(INPUT.to_string(), Arc::new(Number(SOURCE_VALUE)))]);
+    let runtime_state = RuntimeState::<Number> {
+        inputs_map: InputsMap::from_iter([(INPUT.to_string(), Arc::new(Number(SOURCE_VALUE)))]),
+        ..Default::default()
+    };
 
     let result = TestNode::compute_thread(
         ThreadedBlueprint::Increment,

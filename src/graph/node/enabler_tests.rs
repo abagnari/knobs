@@ -172,10 +172,10 @@ fn input_type_mut(port: &mut Port<TestPort>) -> Option<&mut PortInputType> {
     }
 }
 
-fn constant_mut<'a>(
-    node: &'a mut Node<TestPort, TestValue, EnablerBlueprint>,
+fn constant_mut(
+    node: &mut Node<TestPort, TestValue, EnablerBlueprint>,
     index: u32,
-) -> &'a mut ConstantInputType {
+) -> &mut ConstantInputType {
     node.ports_get_mut(&local(index))
         .and_then(input_type_mut)
         .and_then(PortInputType::constant_type_mut)

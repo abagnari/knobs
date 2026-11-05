@@ -228,6 +228,24 @@ where
     Tarjan::new(graph).run()
 }
 
+pub(crate) fn grid_line_positions(start: f32, end: f32, spacing: f32) -> Vec<f32> {
+    if spacing <= 0.0 || start > end {
+        return Vec::new();
+    }
+
+    let first_index = (start / spacing).ceil() as i64;
+    let last_index = (end / spacing).floor() as i64;
+
+    (first_index..=last_index)
+        .map(|index| index as f32 * spacing)
+        .collect()
+}
+
+/// Returns a random u32 within a bounded range
+pub(crate) fn random_in_range(rng: &mut impl Rng, min_bound: u32, max_bound: u32) -> u32 {
+    rng.random_range(min_bound..=max_bound)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -511,22 +529,4 @@ mod tests {
             );
         }
     }
-}
-
-pub(crate) fn grid_line_positions(start: f32, end: f32, spacing: f32) -> Vec<f32> {
-    if spacing <= 0.0 || start > end {
-        return Vec::new();
-    }
-
-    let first_index = (start / spacing).ceil() as i64;
-    let last_index = (end / spacing).floor() as i64;
-
-    (first_index..=last_index)
-        .map(|index| index as f32 * spacing)
-        .collect()
-}
-
-/// Returns a random u32 within a bounded range
-pub(crate) fn random_in_range(rng: &mut impl Rng, min_bound: u32, max_bound: u32) -> u32 {
-    rng.random_range(min_bound..=max_bound)
 }

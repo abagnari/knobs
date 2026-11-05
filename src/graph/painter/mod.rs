@@ -6,7 +6,12 @@ use std::fmt::Debug;
 use egui::containers::menu::{MenuBar, MenuConfig};
 use egui::epaint::RectShape;
 use egui::layers::ShapeIdx;
-use egui::{Align, Align2, Area, AsIdSalt, Button, Checkbox, Color32, ComboBox, CornerRadius, DragValue, FontId, Frame, Id, InnerResponse, IntoAtoms, Label, Layout, Margin, Panel, Pos2, Rect, Response, RichText, Sense, Shape, Stroke, StrokeKind, TextEdit, Ui, UiBuilder, Vec2, pos2, vec2};
+use egui::{
+    Align, Align2, Area, AsIdSalt, Button, Checkbox, Color32, ComboBox, CornerRadius, DragValue,
+    FontId, Frame, Id, InnerResponse, IntoAtoms, Label, Layout, Margin, Panel, Pos2, Rect,
+    Response, RichText, Sense, Shape, Stroke, StrokeKind, TextEdit, Ui, UiBuilder, Vec2, pos2,
+    vec2,
+};
 
 use crate::NodeBlueprintDefinition;
 use crate::graph::canvas::Canvas;
@@ -199,7 +204,8 @@ impl Painter {
             Stroke::new(
                 canvas.zoomed(if selected {
                     self.theme().connection_selected_thickness
-                } else {
+                }
+                else {
                     self.theme().connection_thickness
                 }),
                 self.theme().connection_color,
@@ -223,7 +229,8 @@ impl Painter {
     ) {
         let radius: f32 = if handle_response.hovered() || selected {
             canvas.zoomed(self.theme().port_radius_hover)
-        } else {
+        }
+        else {
             canvas.zoomed(self.theme().port_radius)
         };
 
@@ -252,7 +259,8 @@ impl Painter {
 
         if dashed_line {
             Shape::dashed_line(&points, stroke, canvas.zoomed(3.0), canvas.zoomed(6.0))
-        } else {
+        }
+        else {
             vec![Shape::line(points, stroke)]
         }
     }
@@ -292,7 +300,8 @@ impl Painter {
                 Shape::dashed_line(&points, stroke, canvas.zoomed(3.0), canvas.zoomed(6.0)),
                 handle_rect,
             )
-        } else {
+        }
+        else {
             (vec![Shape::line(points, stroke)], handle_rect)
         }
     }
@@ -443,7 +452,7 @@ impl Painter {
                             .color(self.theme().font_color)
                             .background_color(self.theme().node_highlight_color),
                     )
-                        .selectable(false),
+                    .selectable(false),
                 );
             });
 
@@ -629,7 +638,7 @@ impl Painter {
     {
         let margin: f32 = canvas.zoomed(10.0);
         let mut hovered_port: Option<PortId> = None;
-        let iter: Box<dyn Iterator<Item=&Port<P>>>;
+        let iter: Box<dyn Iterator<Item = &Port<P>>>;
         let layout: Layout;
         let mut states: HashMap<PortId, PortState> = HashMap::new();
 
@@ -669,15 +678,17 @@ impl Painter {
                 | PortLinkageType::Input(_) => &port.label,
                 PortLinkageType::Output(PortOutputType::ConstantOnly { ref text_value })
                 | PortLinkageType::Output(PortOutputType::ConnectionAndConstant {
-                                              ref text_value,
-                                          }) => {
+                    ref text_value,
+                }) => {
                     if let Some(text_value) = text_value {
                         if text_value.is_empty() {
                             &port.label
-                        } else {
+                        }
+                        else {
                             &format!("{}: {}", port.label, text_value)
                         }
-                    } else {
+                    }
+                    else {
                         &port.label
                     }
                 }
@@ -693,8 +704,8 @@ impl Painter {
                                 .background_color(Color32::TRANSPARENT)
                                 .size(canvas.zoomed(self.theme().font_size_ports)),
                         )
-                            .selectable(false)
-                            .halign(Align::Center),
+                        .selectable(false)
+                        .halign(Align::Center),
                     );
                     ui.add_space(canvas.zoomed(2.0));
 
@@ -708,7 +719,8 @@ impl Painter {
                                 && port_side != PortSide::InlineOutput
                             {
                                 Some(current_rect)
-                            } else {
+                            }
+                            else {
                                 None
                             },
                             connections_states: HashMap::new(),
@@ -735,7 +747,8 @@ impl Painter {
                 let dot_rect = Rect::from_center_size(
                     if port_side == PortSide::Input {
                         port_state.rect.unwrap().left_center() - vec2(margin, 0.0)
-                    } else {
+                    }
+                    else {
                         port_state.rect.unwrap().right_center() + vec2(margin, 0.0)
                     },
                     vec2(
@@ -746,7 +759,8 @@ impl Painter {
 
                 if let Some(dragged_connection) = dragged_connection
                     && dragged_connection.from_port == *port_id
-                    && let Some(pointer_position) = ui.pointer_interact_pos() {
+                    && let Some(pointer_position) = ui.pointer_interact_pos()
+                {
                     self.show_temporary_connection(
                         ui,
                         canvas,
@@ -773,15 +787,16 @@ impl Painter {
                             radius = canvas.zoomed(self.theme().port_radius_hover);
                         }
                         Some(dragged_connection) => {
-                            if node.ports()[port_id].is_connection_compatible(dragged_connection)
-                            {
+                            if node.ports()[port_id].is_connection_compatible(dragged_connection) {
                                 radius = canvas.zoomed(self.theme().port_radius_hover);
-                            } else {
+                            }
+                            else {
                                 radius = canvas.zoomed(self.theme().port_radius);
                             }
                         }
                     }
-                } else {
+                }
+                else {
                     radius = canvas.zoomed(self.theme().port_radius);
                 }
 
@@ -809,7 +824,7 @@ impl Painter {
             .map(|port_id| (*port_id, node.is_constant_enabled(port_id)))
             .collect();
 
-        let iter: Box<dyn Iterator<Item=&mut Port<P>>> = match port_side {
+        let iter: Box<dyn Iterator<Item = &mut Port<P>>> = match port_side {
             PortSide::Input => Box::new(node.input_ports_mut()),
             PortSide::Output => Box::new(node.output_ports_mut()),
             PortSide::Parameter => Box::new(node.input_parameters_mut()),
@@ -1009,7 +1024,7 @@ impl Painter {
                                 })
                             });
                         })
-                            .response
+                        .response
                     });
 
                     committed
@@ -1045,7 +1060,7 @@ impl Painter {
                                 })
                             });
                         })
-                            .response
+                        .response
                     });
 
                     committed
@@ -1089,7 +1104,7 @@ impl Painter {
                                 committed = true;
                             }
                         })
-                            .response
+                        .response
                     });
 
                     committed
@@ -1125,9 +1140,7 @@ impl Painter {
         let style_painter = &self.style_painter;
 
         let constant_type = match port.linkage_type {
-            PortLinkageType::Input(ref mut input_type) => {
-                input_type.constant_type_mut()?
-            }
+            PortLinkageType::Input(ref mut input_type) => input_type.constant_type_mut()?,
             PortLinkageType::Output(_) => return None,
         };
 
@@ -1226,11 +1239,11 @@ impl Painter {
                             .color(self.theme().font_color)
                             .background_color(Color32::TRANSPARENT),
                     )
-                        .stroke(Stroke::new(
-                            canvas.zoomed(self.theme().textbox_border_thickness),
-                            self.theme().textbox_border_color,
-                        ))
-                        .frame_when_inactive(true),
+                    .stroke(Stroke::new(
+                        canvas.zoomed(self.theme().textbox_border_thickness),
+                        self.theme().textbox_border_color,
+                    ))
+                    .frame_when_inactive(true),
                 );
 
                 if button_response.clicked() {

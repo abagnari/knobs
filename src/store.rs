@@ -253,7 +253,10 @@ mod tests {
 
         store.insert(COUNT_KEY, String::from(NAME));
 
-        assert!(matches!(store.get::<u32>(COUNT_KEY), Err(GetError::InvalidType)));
+        assert!(matches!(
+            store.get::<u32>(COUNT_KEY),
+            Err(GetError::InvalidType)
+        ));
         assert_eq!(store.get::<String>(COUNT_KEY).unwrap(), NAME);
     }
 

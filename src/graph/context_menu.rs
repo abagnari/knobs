@@ -72,7 +72,8 @@ where
                 self.menu
                     .elements
                     .insert(blueprint.name().to_string(), blueprint);
-            } else {
+            }
+            else {
                 if !self.menu.subcategories.contains_key(*category) {
                     self.menu.subcategories.insert(
                         category.to_string(),

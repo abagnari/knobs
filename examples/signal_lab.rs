@@ -1,8 +1,7 @@
 use std::collections::HashMap;
 use std::f32::consts::TAU;
-use std::fs;
+use std::{fs, thread};
 use std::sync::{Arc, Mutex};
-use std::thread;
 use std::time::Duration;
 
 use eframe::egui;
@@ -543,7 +542,8 @@ fn draw_scope(ui: &mut Ui, canvas: &Canvas, state: &mut GenericStore) {
         SCOPE_TEXT,
     );
 
-    let Ok(samples) = state.get::<Arc<[f32]>>(SAMPLES_KEY) else {
+    let Ok(samples) = state.get::<Arc<[f32]>>(SAMPLES_KEY)
+    else {
         painter.text(
             rect.center(),
             Align2::CENTER_CENTER,
@@ -578,7 +578,8 @@ struct FocusedOutput {
 
 impl FocusedOutput {
     fn describe(&self) -> String {
-        let Ok(value) = self.value.lock() else {
+        let Ok(value) = self.value.lock()
+        else {
             return "Unavailable".to_string();
         };
 

@@ -68,10 +68,10 @@ use crate::options::Options;
 pub(crate) mod canvas;
 mod connection;
 mod context_menu;
+mod evaluator;
 pub mod node;
 pub(crate) mod painter;
 pub mod snapshot;
-mod evaluator;
 
 #[allow(dead_code)]
 #[derive(Debug)]
@@ -454,7 +454,8 @@ where
             }
 
             if let Some(viewer) = blueprint.port_for_viewer()
-                && !names.contains(&viewer) {
+                && !names.contains(&viewer)
+            {
                 anyhow::bail!("{blueprint:?} views unknown port {viewer}");
             }
         }
@@ -512,7 +513,8 @@ where
     ) -> anyhow::Result<()> {
         let (from_port, to_port) = if dragged_connection.is_input() {
             (to_port, dragged_connection.from_port)
-        } else {
+        }
+        else {
             (dragged_connection.from_port, to_port)
         };
 
@@ -571,19 +573,19 @@ where
                 .linkage_type
             {
                 PortLinkageType::Input(PortInputType::ConnectionAndConstant {
-                                           ref mut data_source,
-                                           ..
-                                       })
+                    ref mut data_source,
+                    ..
+                })
                 | PortLinkageType::Input(PortInputType::ConnectionOnly {
-                                             ref mut data_source,
-                                             ..
-                                         }) => {
+                    ref mut data_source,
+                    ..
+                }) => {
                     *data_source = None;
                 }
                 PortLinkageType::Output(PortOutputType::ConstantOnly { ref mut text_value })
                 | PortLinkageType::Output(PortOutputType::ConnectionAndConstant {
-                                              ref mut text_value,
-                                          }) => {
+                    ref mut text_value,
+                }) => {
                     *text_value = None;
                 }
                 _ => {}
@@ -635,13 +637,13 @@ where
             .linkage_type
         {
             PortLinkageType::Input(PortInputType::ConnectionAndConstant {
-                                       ref mut data_source,
-                                       ..
-                                   })
+                ref mut data_source,
+                ..
+            })
             | PortLinkageType::Input(PortInputType::ConnectionOnly {
-                                         ref mut data_source,
-                                         ..
-                                     }) => {
+                ref mut data_source,
+                ..
+            }) => {
                 *data_source = Some(from_port);
             }
             _ => {}
@@ -744,13 +746,18 @@ where
         self.painter.show_grid(ui, &self.canvas, canvas_rect);
 
         // Canvas Pan
-        let window_response =
-            ui.interact(canvas_rect, ui.scope_id().with("canvas"), Sense::click_and_drag());
+        let window_response = ui.interact(
+            canvas_rect,
+            ui.scope_id().with("canvas"),
+            Sense::click_and_drag(),
+        );
 
         // Canvas Zoom
         let scroll = ui.input(|i| i.smooth_scroll_delta.y);
 
-        if scroll != 0.0 && let Some(interact_position) = ui.pointer_interact_pos() {
+        if scroll != 0.0
+            && let Some(interact_position) = ui.pointer_interact_pos()
+        {
             self.canvas.zoom(interact_position, ui.clip_rect(), scroll)
         }
 
@@ -775,7 +782,8 @@ where
                 node,
                 if self.selected_node == Some(node_id) {
                     NodeSelectedState::Selected
-                } else {
+                }
+                else {
                     NodeSelectedState::NotSelected
                 },
                 node.validity,
@@ -808,10 +816,12 @@ where
 
             if self.options.show_focus_button
                 && let Some(focus_button_response) = &node_state.focus_button_response
-                && focus_button_response.changed() {
+                && focus_button_response.changed()
+            {
                 if self.nodes[*node_id].focused {
                     self.focus_node(*node_id).unwrap();
-                } else if self.focused_node == Some(*node_id) {
+                }
+                else if self.focused_node == Some(*node_id) {
                     self.unfocus_node();
                 }
                 // The absence of a response with the boolean option enabled probably warrants a
@@ -850,7 +860,8 @@ where
                 }
 
                 if let Some(port_input_response) = &port_state.input_response
-                    && port_input_response.changed() {
+                    && port_input_response.changed()
+                {
                     log::debug!("Forwarding the constant of {port_id:?} to the evaluator");
 
                     let constant = match self.nodes[*node_id].ports()[port_id].linkage_type {
@@ -862,12 +873,11 @@ where
 
                     if let Some(constant) = constant
                         && let Err(error) = self.sender.send(Command::SetConstant {
-                        port_id: *port_id,
-                        constant,
-                    }) {
-                        log::error!(
-                            "[Graph] Failed to set constant in evaluator: {error:?}"
-                        );
+                            port_id: *port_id,
+                            constant,
+                        })
+                    {
+                        log::error!("[Graph] Failed to set constant in evaluator: {error:?}");
                     }
                 }
             }
@@ -921,7 +931,8 @@ where
         }
 
         if window_response.secondary_clicked()
-            && let Some(interact_position) = ui.pointer_interact_pos() {
+            && let Some(interact_position) = ui.pointer_interact_pos()
+        {
             self.context_menu.open_at_position(interact_position);
             self.context_menu_position = Some(interact_position);
         }
@@ -954,7 +965,7 @@ where
                 self.canvas
                     .screen_to_world_coordinates(self.context_menu_position.unwrap()),
             )
-                .expect("Could not create node");
+            .expect("Could not create node");
 
             self.context_menu_position = None;
         }

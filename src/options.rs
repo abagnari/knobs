@@ -116,7 +116,8 @@ mod tests {
     fn with_theme_mut_applies_the_edit_to_the_theme() {
         let options = Options::default();
 
-        let result = options.with_theme_mut(|theme| theme.node_background_color = CUSTOM_BACKGROUND);
+        let result =
+            options.with_theme_mut(|theme| theme.node_background_color = CUSTOM_BACKGROUND);
 
         assert_eq!(result.theme.node_background_color, CUSTOM_BACKGROUND);
     }

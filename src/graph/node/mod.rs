@@ -96,7 +96,7 @@ where
 ///   output ports declared with a [`PortOutputType`] that has a constant part;
 ///   a failed conversion shows no text.
 pub trait NodeBlueprintDefinition<P, D>:
-Serialize + DeserializeOwned + Debug + Eq + Copy + Clone + Send + 'static
+    Serialize + DeserializeOwned + Debug + Eq + Copy + Clone + Send + 'static
 where
     P: PortTypeInfo + Eq + Copy + Clone + Debug,
     D: PartialEq + Clone + Debug + for<'a> From<&'a ConstantInputType> + Send + Sync + 'static,
@@ -474,7 +474,7 @@ where
     }
 
     #[allow(dead_code)]
-    pub(crate) fn ports_mut(&mut self) -> impl Iterator<Item=(&PortId, &mut Port<P>)> {
+    pub(crate) fn ports_mut(&mut self) -> impl Iterator<Item = (&PortId, &mut Port<P>)> {
         self.ports.iter_mut()
     }
 
@@ -484,7 +484,7 @@ where
     }
 
     #[allow(dead_code)]
-    pub(crate) fn input_ports(&self) -> impl Iterator<Item=&Port<P>> {
+    pub(crate) fn input_ports(&self) -> impl Iterator<Item = &Port<P>> {
         self.ports.values().filter(|port| {
             port.is_input()
                 && !matches!(
@@ -495,7 +495,7 @@ where
     }
 
     #[allow(dead_code)]
-    pub(crate) fn input_ports_mut(&mut self) -> impl Iterator<Item=&mut Port<P>> {
+    pub(crate) fn input_ports_mut(&mut self) -> impl Iterator<Item = &mut Port<P>> {
         self.ports.values_mut().filter(|port| {
             port.is_input()
                 && !matches!(
@@ -506,7 +506,7 @@ where
     }
 
     #[allow(dead_code)]
-    pub(crate) fn input_parameters(&self) -> impl Iterator<Item=&Port<P>> {
+    pub(crate) fn input_parameters(&self) -> impl Iterator<Item = &Port<P>> {
         self.ports.values().filter(|port| {
             port.is_input()
                 && matches!(
@@ -517,7 +517,7 @@ where
     }
 
     #[allow(dead_code)]
-    pub(crate) fn input_parameters_mut(&mut self) -> impl Iterator<Item=&mut Port<P>> {
+    pub(crate) fn input_parameters_mut(&mut self) -> impl Iterator<Item = &mut Port<P>> {
         self.ports.values_mut().filter(|port| {
             port.is_input()
                 && matches!(
@@ -528,12 +528,12 @@ where
     }
 
     #[allow(dead_code)]
-    pub(crate) fn input_ports_and_parameters(&self) -> impl Iterator<Item=&Port<P>> {
+    pub(crate) fn input_ports_and_parameters(&self) -> impl Iterator<Item = &Port<P>> {
         self.ports.values().filter(|port| port.is_input())
     }
 
     #[allow(dead_code)]
-    pub(crate) fn output_ports(&self) -> impl Iterator<Item=&Port<P>> {
+    pub(crate) fn output_ports(&self) -> impl Iterator<Item = &Port<P>> {
         self.ports.values().filter(|port| {
             port.is_output()
                 && !matches!(
@@ -544,7 +544,7 @@ where
     }
 
     #[allow(dead_code)]
-    pub(crate) fn output_ports_mut(&mut self) -> impl Iterator<Item=&mut Port<P>> {
+    pub(crate) fn output_ports_mut(&mut self) -> impl Iterator<Item = &mut Port<P>> {
         self.ports.values_mut().filter(|port| {
             port.is_output()
                 && !matches!(
@@ -555,7 +555,7 @@ where
     }
 
     #[allow(dead_code)]
-    pub(crate) fn output_inline_ports(&self) -> impl Iterator<Item=&Port<P>> {
+    pub(crate) fn output_inline_ports(&self) -> impl Iterator<Item = &Port<P>> {
         self.ports.values().filter(|port| {
             matches!(port.direction, PortDirection::Output)
                 && matches!(
@@ -566,7 +566,7 @@ where
     }
 
     #[allow(dead_code)]
-    pub(crate) fn output_inline_ports_mut(&mut self) -> impl Iterator<Item=&mut Port<P>> {
+    pub(crate) fn output_inline_ports_mut(&mut self) -> impl Iterator<Item = &mut Port<P>> {
         self.ports.values_mut().filter(|port| {
             matches!(port.direction, PortDirection::Output)
                 && matches!(
@@ -657,8 +657,8 @@ where
             match port.linkage_type {
                 PortLinkageType::Output(PortOutputType::ConstantOnly { ref mut text_value })
                 | PortLinkageType::Output(PortOutputType::ConnectionAndConstant {
-                                              ref mut text_value,
-                                          }) => {
+                    ref mut text_value,
+                }) => {
                     *text_value = None;
                 }
                 _ => {}
@@ -673,11 +673,11 @@ where
             {
                 match port.linkage_type {
                     PortLinkageType::Output(PortOutputType::ConstantOnly {
-                                                ref mut text_value,
-                                            }) |
-                    PortLinkageType::Output(PortOutputType::ConnectionAndConstant {
-                                                ref mut text_value,
-                                            }) => {
+                        ref mut text_value,
+                    })
+                    | PortLinkageType::Output(PortOutputType::ConnectionAndConstant {
+                        ref mut text_value,
+                    }) => {
                         *text_value = output.clone();
                     }
                     _ => {}
@@ -687,7 +687,7 @@ where
     }
 }
 
-fn input_types<P>(ports: &BTreeMap<PortId, Port<P>>) -> impl Iterator<Item=&PortInputType> + Clone
+fn input_types<P>(ports: &BTreeMap<PortId, Port<P>>) -> impl Iterator<Item = &PortInputType> + Clone
 where
     P: PortTypeInfo + Eq + Copy + Clone + Debug,
 {
@@ -834,10 +834,12 @@ where
                     self.cancel = None;
 
                     value
-                } else {
+                }
+                else {
                     Ok(ComputeState::Running)
                 }
-            } else {
+            }
+            else {
                 log::info!("[{:?}] Starting compute", self.id);
                 let cancel = Arc::new(CancelSignal::default());
                 self.cancel = Some(cancel.clone());
@@ -853,7 +855,8 @@ where
 
                 Ok(ComputeState::Running)
             }
-        } else {
+        }
+        else {
             log::info!("[{:?}] Starting compute", self.id);
             Ok(self.blueprint.compute(&mut self.runtime_state)?)
         };
@@ -868,7 +871,8 @@ where
                     self.outputs = self.declared_outputs(&outputs)?;
 
                     Ok(ComputeState::Done { outputs })
-                } else {
+                }
+                else {
                     log::debug!(
                         "[{:?}] Node invalid after completed compute, assuming computation stopped \
                         and ignoring result",
@@ -916,7 +920,8 @@ where
             }
             self.join_handle = None;
             Ok(())
-        } else {
+        }
+        else {
             self.blueprint.drop_compute()
         }
     }
@@ -999,7 +1004,7 @@ where
     }
 
     #[allow(dead_code)]
-    pub(crate) fn ports_mut(&mut self) -> impl Iterator<Item=(&PortId, &mut EvaluationPort)> {
+    pub(crate) fn ports_mut(&mut self) -> impl Iterator<Item = (&PortId, &mut EvaluationPort)> {
         self.ports.iter_mut()
     }
 
@@ -1008,34 +1013,34 @@ where
     }
 
     #[allow(dead_code)]
-    pub(crate) fn input_ports(&self) -> impl Iterator<Item=&EvaluationPort> {
+    pub(crate) fn input_ports(&self) -> impl Iterator<Item = &EvaluationPort> {
         self.ports.values().filter(|port| {
             port.is_input() && !matches!(port.input_type, Some(PortInputType::ConstantOnly { .. }))
         })
     }
 
     #[allow(dead_code)]
-    pub(crate) fn input_ports_mut(&mut self) -> impl Iterator<Item=&mut EvaluationPort> {
+    pub(crate) fn input_ports_mut(&mut self) -> impl Iterator<Item = &mut EvaluationPort> {
         self.ports.values_mut().filter(|port| {
             port.is_input() && !matches!(port.input_type, Some(PortInputType::ConstantOnly { .. }))
         })
     }
 
     #[allow(dead_code)]
-    pub(crate) fn input_parameters(&self) -> impl Iterator<Item=&EvaluationPort> {
+    pub(crate) fn input_parameters(&self) -> impl Iterator<Item = &EvaluationPort> {
         self.ports.values().filter(|port| {
             port.is_input() && matches!(port.input_type, Some(PortInputType::ConstantOnly { .. }))
         })
     }
 
     #[allow(dead_code)]
-    pub(crate) fn input_parameters_mut(&mut self) -> impl Iterator<Item=&mut EvaluationPort> {
+    pub(crate) fn input_parameters_mut(&mut self) -> impl Iterator<Item = &mut EvaluationPort> {
         self.ports.values_mut().filter(|port| {
             port.is_input() && matches!(port.input_type, Some(PortInputType::ConstantOnly { .. }))
         })
     }
 
-    pub(crate) fn input_ports_and_parameters(&self) -> impl Iterator<Item=&EvaluationPort> {
+    pub(crate) fn input_ports_and_parameters(&self) -> impl Iterator<Item = &EvaluationPort> {
         self.ports.values().filter(|port| port.is_input())
     }
 

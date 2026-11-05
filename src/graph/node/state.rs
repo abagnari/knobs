@@ -168,7 +168,7 @@ where
     }
 
     /// Iterates over the names of every stored input, in arbitrary order.
-    pub fn names(&self) -> impl Iterator<Item=&str> {
+    pub fn names(&self) -> impl Iterator<Item = &str> {
         self.map.keys().map(String::as_str)
     }
 
@@ -193,7 +193,7 @@ where
     D: PartialEq + Clone + Debug + for<'a> From<&'a ConstantInputType> + Send + Sync + 'static,
     for<'a> &'a D: TryInto<String>,
 {
-    fn from_iter<I: IntoIterator<Item=(String, Arc<D>)>>(iter: I) -> Self {
+    fn from_iter<I: IntoIterator<Item = (String, Arc<D>)>>(iter: I) -> Self {
         Self::new(iter.into_iter().collect())
     }
 }

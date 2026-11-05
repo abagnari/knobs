@@ -222,7 +222,7 @@ impl PainterTheme {
                 FontId::new(self.font_size_small * zoom, Proportional),
             ),
         ]
-            .into();
+        .into();
     }
 
     fn apply_widget_visuals(&self, style: &mut EguiStyle, zoom: f32) {

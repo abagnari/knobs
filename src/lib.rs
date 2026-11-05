@@ -160,8 +160,8 @@ pub use graph::node::{ComputeState, NodeBlueprintDefinition};
 pub use graph::Graph;
 pub use graph::node::port::{
     ConstantInputType, EnablerId, EnablerSignal, EnablerSpy, OptionalFloat, OptionalInteger,
-    PortDefinition, PortInputType, PortTypeInfo, enabler_id, input_port, output_port,
-    PortOutputType, PortLinkageType,
+    PortDefinition, PortInputType, PortLinkageType, PortOutputType, PortTypeInfo, enabler_id,
+    input_port, output_port,
 };
 pub use graph::node::state::RuntimeState;
 pub use graph::canvas::Canvas;

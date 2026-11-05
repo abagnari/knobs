@@ -112,7 +112,8 @@ where
                             node_id: None,
                         }),
                     }
-                } else {
+                }
+                else {
                     log::debug!("[Graph] Looping nodes: {:#?}", self.looping_nodes);
                     for nodes_group in &self.looping_nodes {
                         for node_id in nodes_group {
@@ -144,10 +145,12 @@ where
                     log::error!("[Graph] Error while shutting down: {:?}", error);
                 }
                 return;
-            } else if repaint_after_send {
+            }
+            else if repaint_after_send {
                 if let Some(egui_context) = &self.egui_context {
                     egui_context.request_repaint();
-                } else {
+                }
+                else {
                     log::warn!("Need to request repaint but context missing!");
                 }
             }
@@ -185,7 +188,8 @@ where
                 Ok(command) => commands.push(command),
                 Err(RecvError) => commands.push(Command::Shutdown),
             }
-        } else {
+        }
+        else {
             match self.receiver.recv_timeout(POLL_INTERVAL) {
                 Ok(command) => commands.push(command),
                 Err(RecvTimeoutError::Timeout) => {}
@@ -271,8 +275,7 @@ where
                 .ok_or_else(|| anyhow::anyhow!("Could not find node"))?;
 
             match node.validity {
-                DataValidityState::PendingEvaluation
-                | DataValidityState::PendingComputation => {
+                DataValidityState::PendingEvaluation | DataValidityState::PendingComputation => {
                     node.invalidate(reason)?;
                 }
                 DataValidityState::Invalid => {
@@ -321,7 +324,8 @@ where
 
                 if node.is_invalid() {
                     node.validity = DataValidityState::PendingEvaluation;
-                } else {
+                }
+                else {
                     self.evaluation_stack.remove(i);
                 }
             }
@@ -407,18 +411,16 @@ where
             let node = &self.nodes[node_id];
 
             match node.validity {
-                DataValidityState::PendingEvaluation => {
-                    match self.extract_node_inputs(node) {
-                        Ok(inputs) => Ok(Some(inputs)),
-                        Err(e) => {
-                            log::error!(
-                                "[{node_id:?}] Could not extract node inputs: {:?}",
-                                e.to_string()
-                            );
-                            Err(e)
-                        }
+                DataValidityState::PendingEvaluation => match self.extract_node_inputs(node) {
+                    Ok(inputs) => Ok(Some(inputs)),
+                    Err(e) => {
+                        log::error!(
+                            "[{node_id:?}] Could not extract node inputs: {:?}",
+                            e.to_string()
+                        );
+                        Err(e)
                     }
-                }
+                },
                 DataValidityState::PendingComputation => {
                     log::debug!("[{node_id:?}] Waiting for pending computation");
                     Ok(None)
@@ -511,12 +513,12 @@ where
         where
             P: PortTypeInfo + Eq + Copy + Clone + Debug,
             D: PartialEq
-            + Clone
-            + Debug
-            + for<'a> From<&'a ConstantInputType>
-            + Send
-            + Sync
-            + 'static,
+                + Clone
+                + Debug
+                + for<'a> From<&'a ConstantInputType>
+                + Send
+                + Sync
+                + 'static,
             for<'a> &'a D: TryInto<String>,
             K: NodeBlueprintDefinition<P, D>,
         {
@@ -550,7 +552,8 @@ where
                             port.name.clone(),
                             extract_source_output(node, source_node, data_source)?,
                         );
-                    } else {
+                    }
+                    else {
                         if port.required {
                             anyhow::bail!("No input for a required port: {:?}", port.id);
                         }
@@ -572,7 +575,8 @@ where
                             port.name.clone(),
                             extract_source_output(node, source_node, data_source)?,
                         );
-                    } else {
+                    }
+                    else {
                         // TODO: Case in which ::from fails / invalid constant
                         inputs.insert(port.name.clone(), Arc::new(D::from(constant_type)));
                     }
@@ -631,13 +635,13 @@ where
             .input_type
         {
             Some(PortInputType::ConnectionAndConstant {
-                     ref mut data_source,
-                     ..
-                 })
+                ref mut data_source,
+                ..
+            })
             | Some(PortInputType::ConnectionOnly {
-                       ref mut data_source,
-                       ..
-                   }) => {
+                ref mut data_source,
+                ..
+            }) => {
                 *data_source = Some(from_port);
             }
             _ => {}
@@ -682,13 +686,13 @@ where
                 .input_type
             {
                 Some(PortInputType::ConnectionAndConstant {
-                         ref mut data_source,
-                         ..
-                     })
+                    ref mut data_source,
+                    ..
+                })
                 | Some(PortInputType::ConnectionOnly {
-                           ref mut data_source,
-                           ..
-                       }) => {
+                    ref mut data_source,
+                    ..
+                }) => {
                     *data_source = None;
                 }
                 _ => {}
@@ -777,7 +781,8 @@ where
         for (i, port_id) in outbound_connections.iter().enumerate() {
             if i == outbound_connections.len() - 1 {
                 self.delete_connection_to_port(*port_id, true, true)?;
-            } else {
+            }
+            else {
                 self.delete_connection_to_port(*port_id, false, true)?;
             }
         }

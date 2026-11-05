@@ -223,7 +223,7 @@ fn new_node(blueprint: Blueprint) -> Node<Kind, Value, Blueprint> {
         blueprint,
         FIRST_POSITION,
     )
-        .unwrap()
+    .unwrap()
 }
 
 fn show_until(graph: &mut PreviewGraph, condition: impl Fn() -> bool) {

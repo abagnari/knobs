@@ -167,13 +167,13 @@ pub enum PortOutputType {
     ConstantOnly {
         /// Text shown as the port's result. The graph fills it in from the
         /// computed value and replaces anything passed in, so pass `None`.
-        text_value: Option<String>
+        text_value: Option<String>,
     },
     /// Feeds an input port and shows the output value as an inline label.
     ConnectionAndConstant {
         /// Text shown as the port's result. The graph fills it in from the
         /// computed value and replaces anything passed in, so pass `None`.
-        text_value: Option<String>
+        text_value: Option<String>,
     },
 }
 
@@ -380,7 +380,7 @@ impl PortInputType {
         }
     }
 
-    fn declared_enabler_ids(&self) -> impl Iterator<Item=EnablerId> {
+    fn declared_enabler_ids(&self) -> impl Iterator<Item = EnablerId> {
         let port_level = match self {
             Self::ConnectionOnly { enables_id, .. }
             | Self::ConstantOnly { enables_id, .. }
@@ -411,7 +411,7 @@ impl PortInputType {
 }
 
 pub(crate) fn resolve_signal<'a>(
-    input_types: impl IntoIterator<Item=&'a PortInputType>,
+    input_types: impl IntoIterator<Item = &'a PortInputType>,
     signal: EnablerSignal,
 ) -> bool {
     input_types
@@ -421,7 +421,7 @@ pub(crate) fn resolve_signal<'a>(
 }
 
 pub(crate) fn validate_enablers<'a>(
-    input_types: impl IntoIterator<Item=&'a PortInputType> + Clone,
+    input_types: impl IntoIterator<Item = &'a PortInputType> + Clone,
 ) -> anyhow::Result<()> {
     const SINGLE_ID: usize = 1;
     let mut declared = HashSet::new();
@@ -941,7 +941,8 @@ where
             label: definition.label,
             direction: if definition.is_input {
                 PortDirection::Input
-            } else {
+            }
+            else {
                 PortDirection::Output
             },
             port_type: definition.port_type,
@@ -960,9 +961,9 @@ where
                     Some(ConstantValue::from(constant_type))
                 }
                 PortLinkageType::Input(PortInputType::ConnectionAndConstant {
-                                           constant_type,
-                                           ..
-                                       }) => Some(ConstantValue::from(constant_type)),
+                    constant_type,
+                    ..
+                }) => Some(ConstantValue::from(constant_type)),
                 _ => None,
             },
         }

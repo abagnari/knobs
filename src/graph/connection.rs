@@ -62,7 +62,7 @@ impl Connections {
         self.sources_by_destination.clear();
     }
 
-    pub(crate) fn iter(&self) -> impl Iterator<Item=Connection> + '_ {
+    pub(crate) fn iter(&self) -> impl Iterator<Item = Connection> + '_ {
         self.sources_by_destination
             .iter()
             .map(|(to_port, from_port)| Connection {
